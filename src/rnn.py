@@ -17,7 +17,7 @@ def main(batch_size=256, epochs=15, period = 5):
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 100000, save_csv = True, name = 'The_Donald_100000')
 
-    data_path = '../data/The_Donald_10000.csv'
+    data_path = '~scratch/dl-hw2/data/The_Donald_10000.csv'
     data = ' '.join(list(pd.read_csv(data_path)['body']))
     X, y, vocab_size = encode_text(data)
 
@@ -32,7 +32,7 @@ def main(batch_size=256, epochs=15, period = 5):
     parallel_model = parallelize(model)
     parallel_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 
-    filepath = '../output/checkpoints/rnn/rnn-{epoch:02d}.hdf5'
+    filepath = '~scratch/dl-hw2/output/checkpoints/rnn/rnn-{epoch:02d}.hdf5'
     checkpoint = ModelCheckpoint(filepath, verbose=1, period=period)
 
     history = parallel_model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split = 0.1,verbose=2, callbacks = [checkpoint])
@@ -109,7 +109,7 @@ def plot_acc(history):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Training', 'Validation'], loc='upper left')
-    plt.savefig('../output/images/rnn/rnn_training_acc.png')
+    plt.savefig('~scratch/dl-hw2/output/images/rnn/rnn_training_acc.png')
 
 def parallelize(model):
 

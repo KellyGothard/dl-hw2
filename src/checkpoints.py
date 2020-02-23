@@ -17,7 +17,7 @@ from keras.callbacks import ModelCheckpoint
 
 def main(batch_size=256, epochs=15, period = 5, char_length=10, vocab_size=256):
 
-    data_path = '../data/The_Donald_10.csv'
+    data_path = '~scratch/dl-hw2/data/The_Donald_10.csv'
     data = ' '.join(list(pd.read_csv(data_path, nrows=3)['body']))
     print('Total number of characters: '+str(len(data)))
     lines = create_sequences(data, char_length)
@@ -25,7 +25,7 @@ def main(batch_size=256, epochs=15, period = 5, char_length=10, vocab_size=256):
     print('X shape: '+str(X.shape))
     print('y shape: '+str(y.shape))
 
-    checkpoint_paths = glob.glob('../output/checkpoints/rnn/*.hdf5')
+    checkpoint_paths = glob.glob('~scratch/dl-hw2/output/checkpoints/rnn/*.hdf5')
     for path in checkpoint_paths:
         print(path)
         model = Sequential()
