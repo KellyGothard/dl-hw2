@@ -3,7 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import pushshift
+import glob
 import joblib
+import re
 
 from tensorflow.python.client import device_lib
 
@@ -14,30 +16,33 @@ from keras.layers import Dense
 from keras.layers import SimpleRNN
 from keras.callbacks import ModelCheckpoint
 
-def main(batch_size=256, epochs=15, period = 5):
+def main(batch_size=256, epochs=15, period = 5, char_length=10, vocab_size=256):
 
-    # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 100000, save_csv = True, name = 'The_Donald_100000')
-
-    data_path = '../data/The_Donald_10000.csv'
-    data = ' '.join(list(pd.read_csv(data_path)['body']))
-    X, y, vocab_size = encode_text(data)
-
+    data_path = '../data/The_Donald_10.csv'
+    data = ' '.join(list(pd.read_csv(data_path, nrows=3)['body']))
+    print('Total number of characters: '+str(len(data)))
+    lines = create_sequences(data, char_length)
+    X, y = encode_text(lines, vocab_size)
     print('X shape: '+str(X.shape))
     print('y shape: '+str(y.shape))
 
-    model = Sequential()
-    model.add(SimpleRNN(75, input_shape=(X.shape[1], X.shape[2])))
-    model.add(Dense(vocab_size, activation='softmax'))
-    print(model.summary())
+    checkpoint_paths = glob.glob('../output/checkpoints/rnn/*.hdf5')
+    for path in checkpoint_paths:
+        print(path)
+        model = Sequential()
+        model.add(SimpleRNN(75, input_shape=(X.shape[1], X.shape[2])))
+        model.add(Dense(vocab_size, activation='softmax'))
 
-    parallel_model = parallelize(model)
-    parallel_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
+        model.load_weights(path)
+        parallel_model = parallelize(model)
+        parallel_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    filepath = '../output/checkpoints/rnn/rnn-{epoch:02d}.hdf5'
-    checkpoint = ModelCheckpoint(filepath, verbose=1, period=period)
+        preds = parallel_model.predict(X, batch_size=batch_size)
+        char_preds = decode_text(preds)
 
-    history = parallel_model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split = 0.1,verbose=2, callbacks = [checkpoint])
-    plot_acc(history)
+        for i in range(len(lines)):
+            print(lines[i]+'-'+char_preds[i])
+
 
 def available_gpus():
     local_device_protos = device_lib.list_local_devices()
@@ -56,18 +61,14 @@ def onehot_encode_text(post):
 
     return np.array(onehot)
 
-def encode_text(post):
+def encode_text(lines, vocab_size):
     '''
     :param post:
     :return: one hot encoding of characters in post
     '''
-    post =  post.encode("ascii", errors="ignore").decode()
-    chars = sorted(list(set(post)))
+    char_length = len(lines[0])
+    print(char_length)
     mapping = dict((chr(i), i) for i in range(256))
-    vocab_size = len(mapping)
-    print('Vocabulary Size: %d' % vocab_size)
-
-    lines = create_sequences(post)
 
     sequences = []
     for line in lines:
@@ -76,26 +77,28 @@ def encode_text(post):
         # store
         sequences.append(encoded_seq)
 
-    X, y = x_y_split(sequences)
+    X, y = x_y_split(sequences, char_length)
 
     sequences = [to_categorical(x, num_classes=vocab_size) for x in X]
     X = np.array(sequences)
     y = to_categorical(y, num_classes=vocab_size)
 
-    return X, y, vocab_size
+    return X, y
 
-def create_sequences(post):
+def create_sequences(post, char_length):
+    post =  post.encode("ascii", errors="ignore").decode()
+    post = remove_links(post)
     sequences = []
     for i in range(len(post)):
-        sequence = post[i:i+10]
+        sequence = post[i:i+char_length]
         sequences.append(sequence)
     return sequences
 
-def x_y_split(encoded):
+def x_y_split(encoded, char_length):
     X = []
     y = []
     for i in range(len(encoded)-1):
-        if len(encoded[i]) == 10:
+        if len(encoded[i]) == char_length:
             X.append(encoded[i])
             y.append(encoded[i+1][0])
     X = np.array(X)
@@ -113,7 +116,6 @@ def plot_acc(history):
     plt.savefig('../output/images/rnn/rnn_training_acc.png')
 
 def parallelize(model):
-
     gpu_count = len(available_gpus())
     if gpu_count > 1:
         print(f"\n\nModel parallelized over {gpu_count} GPUs.\n\n")
@@ -124,6 +126,17 @@ def parallelize(model):
 
     return parallel_model
 
+def decode_text(preds):
+    preds_str = []
+    for pred in preds:
+        max_pred = np.where(pred == max(pred))[0]
+        pred_str = chr(max_pred)
+        preds_str.append(pred_str)
+
+    return preds_str
+
+def remove_links(post):
+    return re.sub(r'(https|http)?:\/\/(\w|\.|\/|\?|\=|\&|\%)*\b', '', post, flags=re.MULTILINE)
 
 if __name__ == '__main__':
     main()
