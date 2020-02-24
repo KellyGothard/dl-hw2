@@ -13,7 +13,7 @@ from keras.layers import Dense
 from keras.layers import SimpleRNN
 from keras.callbacks import ModelCheckpoint
 
-def main(batch_size=512, epochs = 50, period = 10):
+def main(batch_size=512, epochs = 20, period = 5):
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 100000, save_csv = True, name = 'The_Donald_100000')
 
@@ -32,7 +32,7 @@ def main(batch_size=512, epochs = 50, period = 10):
     parallel_model = parallelize(model)
     parallel_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 
-    filepath = 'rnn-{epoch:02d}.hdf5'
+    filepath = '~/scratch/dl-hw2/output/rnn/checkpoints/rnn-{epoch:02d}.hdf5'
     checkpoint = ModelCheckpoint(filepath, verbose=1, period=period)
 
     history = parallel_model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split = 0.1,verbose=2, callbacks = [checkpoint])
@@ -109,7 +109,7 @@ def plot_acc(history):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Training', 'Validation'], loc='upper left')
-    plt.savefig('~/scratch/dl-hw2/output/images/rnn/rnn_training_acc.png')
+    plt.savefig('~/scratch/dl-hw2/output/rnn/checkpoints/rnn_training_acc.png')
 
 def parallelize(model):
 

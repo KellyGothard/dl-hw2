@@ -9,15 +9,15 @@ from tensorflow.python.client import device_lib
 import keras
 from keras.utils import to_categorical
 from keras.models import Sequential
-from keras.layers import Dense, SimpleRNN, LSTM
+from keras.layers import Dense, GRU
 from keras.callbacks import ModelCheckpoint
 
 def main(batch_size=512, epochs = 50, period = 10):
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 100000, save_csv = True, name = 'The_Donald_100000')
 
-    data_path = '~/scratch/dl-hw2/data/The_Donald_10000.csv'
-    # data_path = '../data/The_Donald_10000.csv'
+    # data_path = '~/scratch/dl-hw2/data/The_Donald_10000.csv'
+    data_path = '../data/The_Donald_10000.csv'
     data = ' '.join(list(pd.read_csv(data_path)['body']))
     X, y, vocab_size = encode_text(data)
 
@@ -25,14 +25,14 @@ def main(batch_size=512, epochs = 50, period = 10):
     print('y shape: '+str(y.shape))
 
     model = Sequential()
-    model.add(LSTM(75, input_shape=(X.shape[1], X.shape[2])))
+    model.add(GRU(75, input_shape=(X.shape[1], X.shape[2])))
     model.add(Dense(vocab_size, activation='softmax'))
     print(model.summary())
 
     parallel_model = parallelize(model)
     parallel_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 
-    filepath = '~/scratch/dl-hw2/output/lstm/checkpoints/lstm-{epoch:02d}.hdf5'
+    filepath = '../output/gru/checkpoints/gru-{epoch:02d}.hdf5'
     checkpoint = ModelCheckpoint(filepath, verbose=1, period=period)
 
     history = parallel_model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split = 0.1,verbose=2, callbacks = [checkpoint])
@@ -110,7 +110,7 @@ def plot_acc(history):
     plt.xlabel('Epoch')
     plt.legend(['Training', 'Validation'], loc='upper left')
     # plt.savefig('~/scratch/dl-hw2/output/images/lstm/lstm_training_acc.png')
-    plt.savefig('~/scratch/dl-hw2/output/lstm/images/lstm_training_acc.png')
+    plt.savefig('../output/gru/images/gru_training_acc.png')
 
 def parallelize(model):
 
