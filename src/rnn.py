@@ -19,8 +19,9 @@ def main(batch_size=512, epochs = 25, period = 5):
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 20000, save_csv = True, name = 'The_Donald_20000')
 
     data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
-
-    data = ' '.join(list(pd.read_csv(data_path)['body']))
+    df = pd.read_csv(data_path)
+    df = df[df['body'].notna()]
+    data = ' '.join(list(df['body']))
     X, y, vocab_size = encode_text(data)
 
     X_train, X_test, y_train, y_test =  train_test_split(X, y, test_size=0.1)
