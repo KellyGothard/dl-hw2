@@ -18,8 +18,9 @@ def main(batch_size=512, epochs = 25, period = 5):
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 20000, save_csv = True, name = 'The_Donald_20000')
 
-    data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
-    df = pd.read_csv(data_path)
+    # data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
+    data_path = '../data/The_Donald_20000.csv'
+    df = pd.read_csv(data_path,nrows=12000)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
     X, y, vocab_size = encode_text(data)

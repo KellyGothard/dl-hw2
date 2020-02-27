@@ -20,7 +20,7 @@ def main(batch_size=512, epochs = 25, period = 5):
 
     data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
     # data_path = '../data/The_Donald_20000.csv'
-    df = pd.read_csv(data_path)
+    df = pd.read_csv(data_path,nrows=12000)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
     X, y, vocab_size = encode_text(data)
