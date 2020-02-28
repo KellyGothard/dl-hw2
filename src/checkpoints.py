@@ -15,18 +15,19 @@ from keras.layers import Dense
 from keras.layers import SimpleRNN
 from keras.callbacks import ModelCheckpoint
 
-def main(batch_size=256, epochs=15, period = 5, char_length=10, vocab_size=256):
+def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256):
 
-    data_path = '~/scratch/dl-hw2/data/The_Donald_10.csv'
-    data = ' '.join(list(pd.read_csv(data_path, nrows=3)['body']))
+    data_path = '~/scratch/dl-hw2/data/The_Donald_2000.csv'
+    data = ' '.join(list(pd.read_csv(data_path, nrows=10)['body']))
     print('Total number of characters: '+str(len(data)))
     lines = create_sequences(data, char_length)
     X, y = encode_text(lines, vocab_size)
     print('X shape: '+str(X.shape))
     print('y shape: '+str(y.shape))
 
-    checkpoint_paths = glob.glob('~/scratch/dl-hw2/output/checkpoints/rnn/*.hdf5')
+    checkpoint_paths = glob.glob('~/scratch/dl-hw2/*.hdf5')
     for path in checkpoint_paths:
+        print('##################################################################')
         print(path)
         model = Sequential()
         model.add(SimpleRNN(75, input_shape=(X.shape[1], X.shape[2])))
