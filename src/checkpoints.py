@@ -93,7 +93,7 @@ def encode_text(post, sequence_length):
     X = np.array(sequences)
     y = to_categorical(y, num_classes=vocab_size)
 
-    return X, y, vocab_size, lines
+    return X, y, lines
 
 def create_sequences(post, sequence_length):
     sequences = []
