@@ -17,8 +17,9 @@ from keras.callbacks import ModelCheckpoint
 
 def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, sequence_length = 10):
 
-    data_path = '../data/The_Donald_20000.csv'
-    df = pd.read_csv(data_path,nrows=120)
+    data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
+    # data_path = '../data/The_Donald_20000.csv'
+    df = pd.read_csv(data_path,nrows=10)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
     X, y, lines = encode_text(data, sequence_length)
