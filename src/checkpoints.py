@@ -12,7 +12,7 @@ import keras
 from keras.utils import to_categorical
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.layers import SimpleRNN
+from keras.layers import SimpleRNN, LSTM, GRU
 from keras.callbacks import ModelCheckpoint
 
 def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256):
@@ -30,8 +30,14 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256):
     for path in checkpoint_paths:
         print('##################################################################')
         print(path)
+        model_type = path.split('-')[0]
         model = Sequential()
-        model.add(SimpleRNN(75, input_shape=(X.shape[1], X.shape[2])))
+        if model_type == 'rnn':
+            model.add(SimpleRNN(75, input_shape=(X.shape[1], X.shape[2])))
+        if model_type == 'lstm':
+            model.add(LSTM(75, input_shape=(X.shape[1], X.shape[2])))
+        if model_type == 'gru':
+            model.add(GRU(75, input_shape=(X.shape[1], X.shape[2])))
         model.add(Dense(vocab_size, activation='softmax'))
 
         model.load_weights(path)
@@ -43,7 +49,6 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256):
 
         for i in range(len(lines)):
             print(lines[i]+'-'+char_preds[i])
-
 
 def available_gpus():
     local_device_protos = device_lib.list_local_devices()
@@ -62,14 +67,18 @@ def onehot_encode_text(post):
 
     return np.array(onehot)
 
-def encode_text(lines, vocab_size):
+def encode_text(post, sequence_length):
     '''
     :param post:
     :return: one hot encoding of characters in post
     '''
-    char_length = len(lines[0])
-    print(char_length)
+    post = post.encode("ascii", errors="ignore").decode()
+    chars = sorted(list(set(post)))
     mapping = dict((chr(i), i) for i in range(256))
+    vocab_size = len(mapping)
+    print('Vocabulary Size: %d' % vocab_size)
+
+    lines = create_sequences(post, sequence_length)
 
     sequences = []
     for line in lines:
@@ -78,28 +87,26 @@ def encode_text(lines, vocab_size):
         # store
         sequences.append(encoded_seq)
 
-    X, y = x_y_split(sequences, char_length)
+    X, y = x_y_split(sequences, sequence_length)
 
     sequences = [to_categorical(x, num_classes=vocab_size) for x in X]
     X = np.array(sequences)
     y = to_categorical(y, num_classes=vocab_size)
 
-    return X, y
+    return X, y, vocab_size
 
-def create_sequences(post, char_length):
-    post =  post.encode("ascii", errors="ignore").decode()
-    post = remove_links(post)
+def create_sequences(post, sequence_length):
     sequences = []
     for i in range(len(post)):
-        sequence = post[i:i+char_length]
+        sequence = post[i:i+sequence_length]
         sequences.append(sequence)
     return sequences
 
-def x_y_split(encoded, char_length):
+def x_y_split(encoded, sequence_length):
     X = []
     y = []
     for i in range(len(encoded)-1):
-        if len(encoded[i]) == char_length:
+        if len(encoded[i]) == sequence_length:
             X.append(encoded[i])
             y.append(encoded[i+1][0])
     X = np.array(X)
@@ -107,16 +114,8 @@ def x_y_split(encoded, char_length):
 
     return X, y
 
-def plot_acc(history):
-    plt.plot(history.history['acc'])
-    plt.plot(history.history['val_acc'])
-    plt.title('Model Accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Training', 'Validation'], loc='upper left')
-    plt.savefig('../output/images/rnn/rnn_training_acc.png')
-
 def parallelize(model):
+
     gpu_count = len(available_gpus())
     if gpu_count > 1:
         print(f"\n\nModel parallelized over {gpu_count} GPUs.\n\n")
@@ -127,17 +126,6 @@ def parallelize(model):
 
     return parallel_model
 
-def decode_text(preds):
-    preds_str = []
-    for pred in preds:
-        max_pred = np.where(pred == max(pred))[0]
-        pred_str = chr(max_pred)
-        preds_str.append(pred_str)
-
-    return preds_str
-
-def remove_links(post):
-    return re.sub(r'(https|http)?:\/\/(\w|\.|\/|\?|\=|\&|\%)*\b', '', post, flags=re.MULTILINE)
 
 if __name__ == '__main__':
     main()
