@@ -15,13 +15,13 @@ from keras.layers import Dense
 from keras.layers import SimpleRNN, LSTM, GRU
 from keras.callbacks import ModelCheckpoint
 
-def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256):
+def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, sequence_length = 10):
 
-    data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
-    data = ' '.join(list(pd.read_csv(data_path, nrows=10)['body']))
-    print('Total number of characters: '+str(len(data)))
-    lines = create_sequences(data, char_length)
-    X, y = encode_text(lines, vocab_size)
+    data_path = '../data/The_Donald_20000.csv'
+    df = pd.read_csv(data_path,nrows=120)
+    df = df[df['body'].notna()]
+    data = ' '.join(list(df['body']))
+    X, y, lines = encode_text(data, sequence_length)
     print('X shape: '+str(X.shape))
     print('y shape: '+str(y.shape))
 
@@ -73,7 +73,6 @@ def encode_text(post, sequence_length):
     :return: one hot encoding of characters in post
     '''
     post = post.encode("ascii", errors="ignore").decode()
-    chars = sorted(list(set(post)))
     mapping = dict((chr(i), i) for i in range(256))
     vocab_size = len(mapping)
     print('Vocabulary Size: %d' % vocab_size)
@@ -93,7 +92,7 @@ def encode_text(post, sequence_length):
     X = np.array(sequences)
     y = to_categorical(y, num_classes=vocab_size)
 
-    return X, y, vocab_size
+    return X, y, vocab_size, lines
 
 def create_sequences(post, sequence_length):
     sequences = []

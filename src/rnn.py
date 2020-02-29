@@ -14,7 +14,7 @@ from keras.callbacks import ModelCheckpoint
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 
-def main(batch_size=512, epochs = 2, period = 5, hidden_units = 75, sequence_length = 10):
+def main(batch_size=512, epochs = 2, period = 5, hidden_units = 75, vocab_size=256, sequence_length = 10):
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 20000, save_csv = True, name = 'The_Donald_20000')
 
@@ -23,7 +23,7 @@ def main(batch_size=512, epochs = 2, period = 5, hidden_units = 75, sequence_len
     df = pd.read_csv(data_path,nrows=120)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
-    X, y, vocab_size = encode_text(data, sequence_length)
+    X, y = encode_text(data, sequence_length)
 
     X_train, X_test, y_train, y_test =  train_test_split(X, y, test_size=0.1)
 
@@ -115,7 +115,7 @@ def encode_text(post, sequence_length):
     X = np.array(sequences)
     y = to_categorical(y, num_classes=vocab_size)
 
-    return X, y, vocab_size
+    return X, y
 
 def create_sequences(post, sequence_length):
     sequences = []
@@ -187,6 +187,9 @@ def plot_confusion_matrix(
     plt.tight_layout()
     plt.savefig(f'{output_path}/{model_type}_confusion{tag}.png')
     plt.close()
+
+# def remove_links(post):
+#     return re.sub(r'(https|http)?:\/\/(\w|\.|\/|\?|\=|\&|\%)*\b', '', post, flags=re.MULTILINE)
 
 
 if __name__ == '__main__':
