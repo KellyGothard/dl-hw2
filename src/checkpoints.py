@@ -127,5 +127,15 @@ def parallelize(model):
     return parallel_model
 
 
+def decode_text(preds):
+    preds_str = []
+    for pred in preds:
+        max_pred = np.where(pred == max(pred))[0]
+        pred_str = chr(max_pred)
+        preds_str.append(pred_str)
+
+    return preds_str
+
+
 if __name__ == '__main__':
     main()
