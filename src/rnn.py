@@ -14,7 +14,7 @@ from keras.callbacks import ModelCheckpoint
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 
-def main(batch_size=512, epochs = 2, period = 5, hidden_units = 75, vocab_size=256, sequence_length = 10):
+def main(batch_size=512, epochs = 25, period = 5, hidden_units = 75, vocab_size=256, sequence_length = 10):
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 20000, save_csv = True, name = 'The_Donald_20000')
 
