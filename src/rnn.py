@@ -18,9 +18,9 @@ def main(batch_size=512, epochs = 2, period = 5, hidden_units = 75, vocab_size=2
 
     # pushshift.subreddit_posts(subreddit = 'The_Donald', n = 20000, save_csv = True, name = 'The_Donald_20000')
 
-    # data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
-    data_path = '../data/The_Donald_20000.csv'
-    df = pd.read_csv(data_path,nrows=120)
+    data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
+    # data_path = '../data/The_Donald_20000.csv'
+    df = pd.read_csv(data_path,nrows=12000)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
     X, y = encode_text(data, sequence_length)
@@ -130,7 +130,7 @@ def x_y_split(encoded, sequence_length):
     for i in range(len(encoded)-1):
         if len(encoded[i]) == sequence_length:
             X.append(encoded[i])
-            y.append(encoded[i+1][0])
+            y.append(encoded[i+1][-1])
     X = np.array(X)
     y = np.array(y)
 
