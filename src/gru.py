@@ -25,7 +25,7 @@ def main(batch_size=512, epochs = 25, period = 5, hidden_units = 75, vocab_size=
     data = ' '.join(list(df['body']))
     X, y = encode_text(data, sequence_length)
 
-    X_train, X_test, y_train, y_test =  train_test_split(X, y, test_size=0.1)
+    X_train, X_test, y_train, y_test =  train_test_split(X, y, test_size=0.2)
 
     print('X train shape: '+str(X_train.shape))
     print('y train shape: '+str(y_train.shape))
@@ -38,7 +38,7 @@ def main(batch_size=512, epochs = 25, period = 5, hidden_units = 75, vocab_size=
     parallel_model = parallelize(model)
     parallel_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 
-    filepath = 'rnn-{epoch:02d}.hdf5'
+    filepath = 'gru-{epoch:02d}'+str(hidden_units)+'.hdf5'
     checkpoint = ModelCheckpoint(filepath, verbose=1, period=period)
 
     history = parallel_model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split = 0.1,verbose=2, callbacks = [checkpoint])
@@ -64,12 +64,12 @@ def main(batch_size=512, epochs = 25, period = 5, hidden_units = 75, vocab_size=
     plot_confusion_matrix(
         c,
         list(range(vocab_size)),
-        model_type='rnn',
+        model_type='gru',
         normalize=False)
     plot_confusion_matrix(
         c,
         list(range(vocab_size)),
-        model_type='rnn',
+        model_type='gru',
         normalize=True)
 
 def available_gpus():
@@ -190,4 +190,4 @@ def plot_confusion_matrix(
 
 
 if __name__ == '__main__':
-    main(hidden_units=75, epochs=100, period=20)
+    main(hidden_units=125, epochs=100, period=20)
