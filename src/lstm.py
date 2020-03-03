@@ -143,7 +143,7 @@ def plot_acc(history):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Training', 'Validation'], loc='upper left')
-    plt.savefig('rnn_training_acc.png')
+    plt.savefig('lstm_training_acc.png')
 
 def parallelize(model):
 
