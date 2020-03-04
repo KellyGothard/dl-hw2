@@ -17,9 +17,9 @@ from keras.callbacks import ModelCheckpoint
 
 def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, sequence_length = 10):
 
-    data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
-    # data_path = '../data/The_Donald_20000.csv'
-    df = pd.read_csv(data_path,nrows=10)
+    # data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
+    data_path = '../data/The_Donald_20000.csv'
+    df = pd.read_csv(data_path,nrows=1)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
     X, y, lines = encode_text(data, sequence_length)
@@ -50,6 +50,7 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, 
 
         for i in range(len(lines)):
             print(lines[i]+'-'+char_preds[i])
+        break
 
 def available_gpus():
     local_device_protos = device_lib.list_local_devices()
@@ -93,13 +94,14 @@ def encode_text(post, sequence_length):
     X = np.array(sequences)
     y = to_categorical(y, num_classes=vocab_size)
 
-    return X, y, lines
+    return X, y, lines[:-1]
 
 def create_sequences(post, sequence_length):
     sequences = []
     for i in range(len(post)):
         sequence = post[i:i+sequence_length]
-        sequences.append(sequence)
+        if len(sequence) == sequence_length:
+            sequences.append(sequence)
     return sequences
 
 def x_y_split(encoded, sequence_length):
