@@ -26,7 +26,7 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, 
     print('X shape: '+str(X.shape))
     print('y shape: '+str(y.shape))
 
-    checkpoint_paths = glob.glob('*.hdf5')
+    checkpoint_paths = glob.glob('rnn*.hdf5')
     print(checkpoint_paths)
     for path in checkpoint_paths:
         print('##################################################################')
