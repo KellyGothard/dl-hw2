@@ -28,17 +28,18 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, 
 
     checkpoint_paths = glob.glob('*100*.hdf5')
     print(checkpoint_paths)
+    hidden_units = checkpoint_paths[7:].split('.')[0]
     for path in checkpoint_paths:
         print('##################################################################')
         print(path)
         model_type = path.split('-')[0]
         model = Sequential()
         if model_type == 'rnn':
-            model.add(SimpleRNN(75, input_shape=(X.shape[1], X.shape[2])))
+            model.add(SimpleRNN(hidden_units, input_shape=(X.shape[1], X.shape[2])))
         if model_type == 'lstm':
-            model.add(LSTM(75, input_shape=(X.shape[1], X.shape[2])))
+            model.add(LSTM(hidden_units, input_shape=(X.shape[1], X.shape[2])))
         if model_type == 'gru':
-            model.add(GRU(75, input_shape=(X.shape[1], X.shape[2])))
+            model.add(GRU(hidden_units, input_shape=(X.shape[1], X.shape[2])))
         model.add(Dense(vocab_size, activation='softmax'))
 
         model.load_weights(path)
