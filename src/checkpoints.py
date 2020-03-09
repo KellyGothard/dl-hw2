@@ -28,7 +28,7 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, 
 
     checkpoint_paths = glob.glob('*100*.hdf5')
     print(checkpoint_paths)
-    hidden_units = checkpoint_paths[0][7:].split('.')[0]
+    hidden_units = int(checkpoint_paths[0][7:].split('.')[0])
     for path in checkpoint_paths:
         print('##################################################################')
         print(path)
