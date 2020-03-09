@@ -17,8 +17,8 @@ from keras.callbacks import ModelCheckpoint
 
 def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, sequence_length = 10):
 
-    # data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
-    data_path = '../data/The_Donald_20000.csv'
+    data_path = '~/scratch/dl-hw2/data/The_Donald_20000.csv'
+    #data_path = '../data/The_Donald_20000.csv'
     df = pd.read_csv(data_path,nrows=1)
     df = df[df['body'].notna()]
     data = ' '.join(list(df['body']))
@@ -26,7 +26,7 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, 
     print('X shape: '+str(X.shape))
     print('y shape: '+str(y.shape))
 
-    checkpoint_paths = glob.glob('rnn*.hdf5')
+    checkpoint_paths = glob.glob('*100*.hdf5')
     print(checkpoint_paths)
     for path in checkpoint_paths:
         print('##################################################################')
@@ -50,7 +50,6 @@ def main(batch_size=512, epochs=15, period = 5, char_length=10, vocab_size=256, 
 
         for i in range(len(lines)):
             print(lines[i]+'-'+char_preds[i])
-        break
 
 def available_gpus():
     local_device_protos = device_lib.list_local_devices()

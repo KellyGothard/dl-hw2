@@ -193,4 +193,4 @@ def plot_confusion_matrix(
 
 
 if __name__ == '__main__':
-    main(hidden_units=75, epochs=100, period=20)
+    main(hidden_units=150, epochs=100, period=20)
