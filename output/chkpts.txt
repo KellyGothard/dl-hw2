@@ -1,0 +1,621 @@
+/users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Using TensorFlow backend.
+WARNING:tensorflow:From /users/k/g/kgothard/scratch/miniconda3/envs/py36dg/lib/python3.7/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-03-03 19:34:29.678460: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2020-03-03 19:34:29.685162: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2020-03-03 19:34:29.685981: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x562aefec1180 executing computations on platform Host. Devices:
+2020-03-03 19:34:29.686016: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+Vocabulary Size: 256
+X shape: (107, 10, 256)
+y shape: (107, 256)
+['rnn-4075.hdf5', 'rnn-8075.hdf5', 'rnn-2075.hdf5', 'rnn-10075.hdf5', 'rnn-6075.hdf5']
+##################################################################
+rnn-4075.hdf5
+
+
+Model not parallelized over GPUs.
+
+
+I'm pretty- 
+'m pretty -t
+m pretty s-o
+ pretty su-p
+pretty sur-e
+retty sure- 
+etty sure -t
+tty sure h-e
+ty sure he-r
+y sure he -w
+ sure he k-n
+sure he kn-o
+ure he kno-w
+re he know- 
+e he knows- 
+ he knows -t
+he knows a-n
+e knows a -l
+ knows a d-o
+knows a do-n
+nows a doz-i
+ows a doze-n
+ws a dozen-t
+s a dozen -t
+ a dozen o-f
+a dozen or- 
+ dozen or -t
+dozen or m-a
+ozen or mo-r
+zen or mor-e
+en or more- 
+n or more -t
+ or more w-h
+or more wa-s
+r more way- 
+ more ways- 
+more ways,- 
+ore ways, -t
+re ways, b-e
+e ways, bu-t
+ ways, but- 
+ways, but -t
+ays, but a- 
+ys, but a -s
+s, but a l-i
+, but a la-w
+ but a law- 
+but a laws- 
+ut a lawsu-r
+t a lawsui-o
+ a lawsuit- 
+a lawsuit -t
+ lawsuit i-n
+lawsuit is- 
+awsuit is -t
+wsuit is t-h
+suit is th-e
+uit is the- 
+it is the -s
+t is the m-o
+ is the mo-s
+is the mos-t
+s the most- 
+ the most -t
+the most d-o
+he most di-d
+e most dir-e
+ most dire-c
+most direc-t
+ost direct- 
+st direct -t
+t direct w-h
+ direct wa-s
+direct way- 
+irect way -t
+rect way t-h
+ect way to- 
+ct way to -t
+t way to "-a
+ way to "m-o
+way to "ma-n
+ay to "mak-e
+y to "make- 
+ to "make -t
+to "make a-n
+o "make a -s
+ "make a s-o
+"make a st-a
+make a sta-t
+ake a stat-e
+ke a state- 
+e a statem-e
+ a stateme-n
+a statemen-t
+ statement- 
+statement"- 
+tatement" -w
+atement" w-h
+tement" wi-t
+ement" wit-h
+ment" with- 
+ent" with -t
+nt" with t-h
+t" with te-r
+" with tee- 
+ with teet- 
+with teeth- 
+##################################################################
+rnn-8075.hdf5
+
+
+Model not parallelized over GPUs.
+
+
+I'm pretty- 
+'m pretty -t
+m pretty s-o
+ pretty su-p
+pretty sur-e
+retty sure- 
+etty sure -t
+tty sure h-e
+ty sure he- 
+y sure he -w
+ sure he k-n
+sure he kn-o
+ure he kno-w
+re he know- 
+e he knows- 
+ he knows -t
+he knows a-n
+e knows a -l
+ knows a d-e
+knows a do-e
+nows a doz-i
+ows a doze-n
+ws a dozen- 
+s a dozen -t
+ a dozen o-f
+a dozen or- 
+ dozen or -t
+dozen or m-a
+ozen or mo-r
+zen or mor-e
+en or more- 
+n or more -t
+ or more w-h
+or more wa-s
+r more way- 
+ more ways- 
+more ways,- 
+ore ways, -t
+re ways, b-e
+e ways, bu-t
+ ways, but- 
+ways, but -t
+ays, but a- 
+ys, but a -s
+s, but a l-i
+, but a la-t
+ but a law- 
+but a laws- 
+ut a lawsu-r
+t a lawsui-s
+ a lawsuit-h
+a lawsuit -t
+ lawsuit i-s
+lawsuit is- 
+awsuit is -t
+wsuit is t-h
+suit is th-e
+uit is the- 
+it is the -c
+t is the m-a
+ is the mo-r
+is the mos-t
+s the most- 
+ the most -t
+the most d-o
+he most di-s
+e most dir-e
+ most dire-c
+most direc-t
+ost direct- 
+st direct -t
+t direct w-h
+ direct wa-s
+direct way- 
+irect way -t
+rect way t-h
+ect way to- 
+ct way to -t
+t way to "-h
+ way to "m-o
+way to "ma-k
+ay to "mak-e
+y to "make- 
+ to "make -t
+to "make a- 
+o "make a -s
+ "make a s-o
+"make a st-a
+make a sta-t
+ake a stat-e
+ke a state- 
+e a statem-e
+ a stateme-n
+a statemen-t
+ statement- 
+statement"- 
+tatement" -w
+atement" w-h
+tement" wi-t
+ement" wit-h
+ment" with- 
+ent" with -t
+nt" with t-h
+t" with te-r
+" with tee- 
+ with teet- 
+with teeth- 
+##################################################################
+rnn-2075.hdf5
+
+
+Model not parallelized over GPUs.
+
+
+I'm pretty- 
+'m pretty -a
+m pretty s-o
+ pretty su-p
+pretty sur-v
+retty sure- 
+etty sure -a
+tty sure h-a
+ty sure he- 
+y sure he -w
+ sure he k-n
+sure he kn-o
+ure he kno-w
+re he know- 
+e he knows- 
+ he knows -o
+he knows a-n
+e knows a -l
+ knows a d-o
+knows a do-n
+nows a doz-a
+ows a doze-n
+ws a dozen-d
+s a dozen -a
+ a dozen o-f
+a dozen or- 
+ dozen or -t
+dozen or m-a
+ozen or mo-r
+zen or mor-e
+en or more- 
+n or more -a
+ or more w-h
+or more wa-s
+r more way- 
+ more ways- 
+more ways,- 
+ore ways, -a
+re ways, b-u
+e ways, bu-t
+ ways, but- 
+ways, but -t
+ays, but a- 
+ys, but a -s
+s, but a l-i
+, but a la-t
+ but a law- 
+but a laws- 
+ut a lawsu-n
+t a lawsui-o
+ a lawsuit- 
+a lawsuit -t
+ lawsuit i-n
+lawsuit is- 
+awsuit is -a
+wsuit is t-h
+suit is th-e
+uit is the- 
+it is the -s
+t is the m-o
+ is the mo-r
+is the mos-t
+s the most- 
+ the most -t
+the most d-o
+he most di-s
+e most dir-e
+ most dire-g
+most direc-t
+ost direct- 
+st direct -a
+t direct w-h
+ direct wa-s
+direct way- 
+irect way -t
+rect way t-h
+ect way to- 
+ct way to -b
+t way to "-s
+ way to "m-o
+way to "ma-n
+ay to "mak-e
+y to "make- 
+ to "make -t
+to "make a-n
+o "make a -s
+ "make a s-t
+"make a st-a
+make a sta-t
+ake a stat-e
+ke a state- 
+e a statem-e
+ a stateme-n
+a statemen-t
+ statement- 
+statement"- 
+tatement" -i
+atement" w-h
+tement" wi-t
+ement" wit-h
+ment" with- 
+ent" with -t
+nt" with t-h
+t" with te-r
+" with tee-r
+ with teet- 
+with teeth- 
+##################################################################
+rnn-10075.hdf5
+
+
+Model not parallelized over GPUs.
+
+
+I'm pretty- 
+'m pretty -a
+m pretty s-o
+ pretty su-p
+pretty sur-e
+retty sure- 
+etty sure -t
+tty sure h-e
+ty sure he- 
+y sure he -w
+ sure he k-n
+sure he kn-o
+ure he kno-w
+re he know- 
+e he knows- 
+ he knows -a
+he knows a-n
+e knows a -s
+ knows a d-e
+knows a do-n
+nows a doz-i
+ows a doze-n
+ws a dozen- 
+s a dozen -a
+ a dozen o-f
+a dozen or- 
+ dozen or -t
+dozen or m-a
+ozen or mo-r
+zen or mor-e
+en or more- 
+n or more -t
+ or more w-h
+or more wa-s
+r more way- 
+ more ways- 
+more ways,- 
+ore ways, -t
+re ways, b-u
+e ways, bu-t
+ ways, but- 
+ways, but -t
+ays, but a- 
+ys, but a -s
+s, but a l-i
+, but a la-w
+ but a law- 
+but a laws- 
+ut a lawsu-r
+t a lawsui-a
+ a lawsuit-t
+a lawsuit -t
+ lawsuit i-n
+lawsuit is- 
+awsuit is -a
+wsuit is t-h
+suit is th-e
+uit is the- 
+it is the -s
+t is the m-o
+ is the mo-r
+is the mos-t
+s the most- 
+ the most -t
+the most d-o
+he most di-s
+e most dir-e
+ most dire-c
+most direc-t
+ost direct- 
+st direct -t
+t direct w-h
+ direct wa-s
+direct way- 
+irect way -t
+rect way t-h
+ect way to- 
+ct way to -t
+t way to "-h
+ way to "m-o
+way to "ma-n
+ay to "mak-e
+y to "make- 
+ to "make -t
+to "make a- 
+o "make a -s
+ "make a s-t
+"make a st-a
+make a sta-t
+ake a stat-e
+ke a state- 
+e a statem-e
+ a stateme-n
+a statemen-t
+ statement- 
+statement"- 
+tatement" -i
+atement" w-h
+tement" wi-t
+ement" wit-h
+ment" with- 
+ent" with -t
+nt" with t-h
+t" with te-r
+" with tee- 
+ with teet- 
+with teeth- 
+##################################################################
+rnn-6075.hdf5
+
+
+Model not parallelized over GPUs.
+
+
+I'm pretty- 
+'m pretty -a
+m pretty s-o
+ pretty su-p
+pretty sur-e
+retty sure- 
+etty sure -t
+tty sure h-e
+ty sure he-r
+y sure he -w
+ sure he k-n
+sure he kn-o
+ure he kno-w
+re he know- 
+e he knows- 
+ he knows -t
+he knows a-n
+e knows a -l
+ knows a d-e
+knows a do-e
+nows a doz-i
+ows a doze-n
+ws a dozen-t
+s a dozen -t
+ a dozen o-f
+a dozen or- 
+ dozen or -t
+dozen or m-a
+ozen or mo-r
+zen or mor-e
+en or more- 
+n or more -t
+ or more w-h
+or more wa-s
+r more way- 
+ more ways- 
+more ways,- 
+ore ways, -t
+re ways, b-e
+e ways, bu-t
+ ways, but- 
+ways, but -t
+ays, but a- 
+ys, but a -p
+s, but a l-o
+, but a la-w
+ but a law- 
+but a laws- 
+ut a lawsu-r
+t a lawsui-n
+ a lawsuit-t
+a lawsuit -t
+ lawsuit i-n
+lawsuit is- 
+awsuit is -t
+wsuit is t-h
+suit is th-e
+uit is the- 
+it is the -p
+t is the m-a
+ is the mo-r
+is the mos-t
+s the most- 
+ the most -t
+the most d-o
+he most di-d
+e most dir-e
+ most dire-c
+most direc-t
+ost direct- 
+st direct -t
+t direct w-h
+ direct wa-s
+direct way- 
+irect way -t
+rect way t-h
+ect way to- 
+ct way to -t
+t way to "-a
+ way to "m-o
+way to "ma-n
+ay to "mak-e
+y to "make- 
+ to "make -t
+to "make a-n
+o "make a -s
+ "make a s-t
+"make a st-a
+make a sta-t
+ake a stat-e
+ke a state-s
+e a statem-e
+ a stateme-n
+a statemen-t
+ statement- 
+statement"- 
+tatement" -i
+atement" w-h
+tement" wi-t
+ement" wit-h
+ment" with- 
+ent" with -t
+nt" with t-h
+t" with te-r
+" with tee- 
+ with teet- 
+with teeth- 
+
+real	0m4.004s
+user	0m9.042s
+sys	0m8.139s
+	Command being timed: "sleep 3"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 664
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 213
+	Voluntary context switches: 2
+	Involuntary context switches: 4
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
